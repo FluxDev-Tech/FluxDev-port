@@ -15,14 +15,18 @@ import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 import Skeleton from './components/Skeleton';
 import CodeBackground from './components/CodeBackground';
+import Resume from './components/Resume';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showSkeleton, setShowSkeleton] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
-      return document.documentElement.classList.contains('dark') || 
-             window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved === 'dark';
+      // Default to dark mode if no preference is saved
+      return true;
     }
     return true;
   });
@@ -37,8 +41,10 @@ export default function App() {
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
 
@@ -98,7 +104,7 @@ export default function App() {
           >
             <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
             <main>
-              <Hero />
+              <Hero onViewResume={() => setIsResumeOpen(true)} />
               <About />
               <Skills />
               <Projects />
@@ -107,6 +113,7 @@ export default function App() {
             </main>
             <Footer />
             <Chatbot />
+            <Resume isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
           </motion.div>
         </AnimatePresence>
       )}

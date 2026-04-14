@@ -1,12 +1,18 @@
 import { Project, Skill, Experience } from './types';
 
 export const PERSONAL_INFO = {
-  name: "FluxDev-Tech",
+  name: "John Lawrence V. Martinez",
   title: "Full Stack Developer & UI Designer",
   bio: "I build high-performance, visually stunning digital experiences. With a focus on modern web technologies and user-centric design, I turn complex problems into elegant solutions.",
   email: "fluxdevtech@gmail.com",
   location: "Cayus, Pilar, Capiz",
   availability: "Available for new projects",
+  education: {
+    degree: "BS in Information Technology",
+    institution: "Capiz State University",
+    period: "2022 - 2026",
+    status: "Incoming 3rd Year Student"
+  },
   socials: {
     github: "https://github.com",
     linkedin: "https://linkedin.com",

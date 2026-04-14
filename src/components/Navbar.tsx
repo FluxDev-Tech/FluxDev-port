@@ -46,7 +46,7 @@ export default function Navbar({ isDarkMode, setIsDarkMode }: NavbarProps) {
           animate={{ opacity: 1, x: 0 }}
           className="text-2xl font-display font-bold tracking-tighter text-slate-900 dark:text-white group"
         >
-          Flux<span className="text-cyan-500 group-hover:text-indigo-500 transition-colors">Dev</span>
+          John<span className="text-cyan-500 group-hover:text-indigo-500 transition-colors">Dev</span>
         </motion.a>
 
         {/* Desktop Nav */}

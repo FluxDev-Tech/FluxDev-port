@@ -1,10 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
+  
+  // Parallax mouse movement
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const springConfig = { stiffness: 100, damping: 30 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+  
+  // Transform values for different layers
+  const glowX = useTransform(smoothX, [-500, 500], [-50, 50]);
+  const glowY = useTransform(smoothY, [-500, 500], [-50, 50]);
+  const gridX = useTransform(smoothX, [-500, 500], [-20, 20]);
+  const gridY = useTransform(smoothY, [-500, 500], [-20, 20]);
 
   useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const x = clientX - window.innerWidth / 2;
+      const y = clientY - window.innerHeight / 2;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -14,8 +38,12 @@ export default function LoadingScreen() {
         return prev + Math.floor(Math.random() * 8) + 1;
       });
     }, 80);
-    return () => clearInterval(interval);
-  }, []);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      clearInterval(interval);
+    };
+  }, [mouseX, mouseY]);
 
   return (
     <motion.div
@@ -24,24 +52,22 @@ export default function LoadingScreen() {
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       className="fixed inset-0 z-[200] bg-slate-50 dark:bg-[#020617] flex flex-col items-center justify-center overflow-hidden transition-colors duration-1000"
     >
-      {/* Background Ambient Glows */}
+      {/* Background Ambient Glows with Parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div 
+          style={{ x: glowX, y: glowY }}
           animate={{ 
             scale: [1, 1.2, 1],
             opacity: [0.1, 0.2, 0.1],
-            x: ["-10%", "10%", "-10%"],
-            y: ["-10%", "10%", "-10%"]
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-cyan-500/10 blur-[150px] rounded-full" 
         />
         <motion.div 
+          style={{ x: useTransform(glowX, (v) => -v), y: useTransform(glowY, (v) => -v) }}
           animate={{ 
             scale: [1.2, 1, 1.2],
             opacity: [0.05, 0.15, 0.05],
-            x: ["10%", "-10%", "10%"],
-            y: ["10%", "-10%", "10%"]
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-500/10 blur-[150px] rounded-full" 
@@ -57,7 +83,7 @@ export default function LoadingScreen() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-7xl md:text-8xl font-display font-bold tracking-tighter text-slate-900 dark:text-white"
           >
-            Flux<span className="text-cyan-500">Dev</span>
+            John<span className="text-cyan-500">Dev</span>
           </motion.div>
           
           {/* Glitch Effect Elements */}
@@ -69,7 +95,7 @@ export default function LoadingScreen() {
             transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 3 }}
             className="absolute inset-0 text-7xl md:text-8xl font-display font-bold tracking-tighter text-cyan-500/30 blur-[2px] pointer-events-none"
           >
-            FluxDev
+            JohnDev
           </motion.div>
         </div>
         
@@ -79,6 +105,7 @@ export default function LoadingScreen() {
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${Math.min(progress, 100)}%` }}
+              transition={{ type: "spring", stiffness: 50, damping: 15 }}
               className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 to-indigo-500 shadow-[0_0_20px_rgba(6,182,212,0.6)]"
             />
           </div>
@@ -118,13 +145,15 @@ export default function LoadingScreen() {
         </div>
       </div>
 
-      {/* Grid Background Effect */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" 
+      {/* Grid Background Effect with Parallax */}
+      <motion.div 
         style={{ 
+          x: gridX, 
+          y: gridY,
           backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`,
-          backgroundSize: '40px 40px' 
-        }} 
+          backgroundSize: '40px 40px'
+        }}
+        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" 
       />
 
       {/* Scanning Line Effect */}

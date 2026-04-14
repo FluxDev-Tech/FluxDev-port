@@ -144,7 +144,7 @@ const DynamicBackground = () => {
   );
 };
 
-export default function Hero() {
+export default function Hero({ onViewResume }: { onViewResume: () => void }) {
   const containerRef = useRef(null);
   const { scrollY } = useScroll();
   
@@ -216,10 +216,8 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-indigo-500 opacity-0 group-hover:opacity-20 transition-opacity" />
             </motion.a>
             
-            <motion.a
-              href={(PERSONAL_INFO.socials as any).resume}
-              target="_blank"
-              rel="noreferrer"
+            <motion.button
+              onClick={onViewResume}
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.9, rotate: 2 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -232,7 +230,7 @@ export default function Hero() {
               >
                 <FileText size={20} />
               </motion.span>
-            </motion.a>
+            </motion.button>
           </div>
         </motion.div>
       </motion.div>
