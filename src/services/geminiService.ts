@@ -11,7 +11,6 @@ Here is the information you have about FluxDev-Tech:
 - Name: ${PERSONAL_INFO.name}
 - Title: ${PERSONAL_INFO.title}
 - Bio: ${PERSONAL_INFO.bio}
-- Location: ${PERSONAL_INFO.location}
 - Availability: ${PERSONAL_INFO.availability}
 - Skills: ${SKILLS.map(s => s.name).join(", ")}
 - Projects: ${PROJECTS.map(p => `${p.title}: ${p.description}`).join("; ")}

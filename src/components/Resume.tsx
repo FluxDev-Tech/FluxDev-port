@@ -76,9 +76,6 @@ export default function Resume({ isOpen, onClose }: ResumeProps) {
                       <a href={`mailto:${PERSONAL_INFO.email}`} className="flex items-center gap-2 hover:text-cyan-600 transition-colors">
                         <Mail size={16} className="text-cyan-500" /> {PERSONAL_INFO.email}
                       </a>
-                      <div className="flex items-center gap-2">
-                        <MapPin size={16} className="text-cyan-500" /> {PERSONAL_INFO.location}
-                      </div>
                       <a href={PERSONAL_INFO.socials.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-cyan-600 transition-colors">
                         <Github size={16} className="text-cyan-500" /> GitHub
                       </a>

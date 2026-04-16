@@ -5,7 +5,6 @@ export const PERSONAL_INFO = {
   title: "Full Stack Developer & UI Designer",
   bio: "I build high-performance, visually stunning digital experiences. With a focus on modern web technologies and user-centric design, I turn complex problems into elegant solutions.",
   email: "fluxdevtech@gmail.com",
-  location: "Cayus, Pilar, Capiz",
   availability: "Available for new projects",
   education: {
     degree: "BS in Information Technology",

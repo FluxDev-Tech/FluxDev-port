@@ -63,19 +63,19 @@ export default function Projects() {
               onClick={() => handleProjectClick(project)}
             >
               <Tilt>
-                <div className="relative rounded-[2.5rem] overflow-hidden glass-dark border border-white/[0.05] shadow-2xl aspect-[16/10]">
+                <div className="relative rounded-[2.5rem] overflow-hidden glass-dark border border-white/[0.05] shadow-2xl aspect-[16/10] bg-slate-900">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover opacity-40 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700 ease-out"
+                    className="w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
                   
                   <div className="absolute inset-0 p-10 flex flex-col justify-end">
                     <div className="flex gap-2 mb-6">
                       {project.tags.map(tag => (
-                        <span key={tag} className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white">
+                        <span key={tag} className="px-3 py-1 rounded-lg bg-white/5 backdrop-blur-md border border-white/10 text-[9px] font-bold uppercase tracking-[0.2em] text-cyan-400">
                           {tag}
                         </span>
                       ))}
@@ -83,16 +83,15 @@ export default function Projects() {
                     
                     <div className="flex items-end justify-between gap-6">
                       <div className="flex-1">
-                        <h4 className="text-4xl font-bold text-white mb-3 tracking-tight">{project.title}</h4>
-                        <p className="text-slate-300 text-base max-w-md line-clamp-2 leading-relaxed">{project.description}</p>
+                        <h4 className="text-4xl font-display font-bold text-white mb-3 tracking-tight leading-none">{project.title}</h4>
+                        <p className="text-slate-400 text-sm max-w-md line-clamp-2 leading-relaxed font-medium">{project.description}</p>
                       </div>
                       
                       <div className="flex gap-4">
                         <motion.button
-                          whileHover={{ scale: 1.1, y: -5, rotate: 5 }}
-                          whileTap={{ scale: 0.8, rotate: -5 }}
-                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                          className="w-14 h-14 rounded-full glass flex items-center justify-center text-white hover:bg-cyan-500/20 transition-all border border-white/10"
+                          whileHover={{ scale: 1.1, y: -5 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="w-14 h-14 rounded-2xl glass flex items-center justify-center text-white hover:bg-cyan-500/20 transition-all border border-white/10 shadow-[0_0_20px_rgba(6,182,212,0.2)]"
                           title="View Details"
                         >
                           <ExternalLink size={24} />
@@ -162,49 +161,39 @@ export function Experience() {
           </motion.h3>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-4">
           {EXPERIENCES.map((exp, idx) => (
             <motion.div
               key={exp.company}
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              className="relative pl-12 border-l border-black/10 dark:border-white/10 group"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="group relative grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 p-8 rounded-3xl hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors border border-transparent hover:border-black/5 dark:hover:border-white/5"
             >
-              <motion.div 
-                variants={itemVariants}
-                className="absolute left-[-5px] top-0 w-[9px] h-[9px] rounded-full bg-cyan-500 group-hover:scale-150 transition-transform shadow-[0_0_15px_rgba(6,182,212,0.5)]" 
-              />
-              
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
-                <motion.div variants={itemVariants}>
-                  <h4 className="text-2xl font-bold text-slate-900 dark:text-white">{exp.role}</h4>
-                  <p className="text-cyan-500 font-medium">{exp.company}</p>
-                </motion.div>
-                <motion.span 
-                  variants={itemVariants}
-                  className="px-4 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-mono text-slate-500"
-                >
-                  {exp.period}
-                </motion.span>
+              <div className="flex flex-col gap-2">
+                <span className="text-xs font-mono font-bold text-cyan-500 tracking-widest uppercase">{exp.period}</span>
+                <h4 className="text-xl font-display font-bold text-slate-900 dark:text-white leading-tight">{exp.company}</h4>
               </div>
               
-              <motion.ul 
-                variants={containerVariants}
-                className="space-y-3"
-              >
-                {exp.description.map((item, i) => (
-                  <motion.li 
-                    key={i} 
-                    variants={itemVariants}
-                    className="text-slate-500 dark:text-slate-400 flex items-start gap-3"
-                  >
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-500/30 flex-shrink-0" />
-                    {item}
-                  </motion.li>
-                ))}
-              </motion.ul>
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]" />
+                  <h5 className="text-lg font-bold text-slate-800 dark:text-slate-200">{exp.role}</h5>
+                </div>
+                
+                <ul className="space-y-3">
+                  {exp.description.map((item, i) => (
+                    <li 
+                      key={i} 
+                      className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed flex items-start gap-3"
+                    >
+                      <span className="mt-1.5 w-1 h-[1px] bg-cyan-500/50 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
         </div>

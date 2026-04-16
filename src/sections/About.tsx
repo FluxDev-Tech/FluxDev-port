@@ -47,28 +47,33 @@ export default function About() {
               className="bento-card flex flex-col justify-between h-full"
             >
               <div>
-                <h4 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white/90">My Philosophy</h4>
-                <p className="text-neutral-600 dark:text-neutral-400 text-lg leading-relaxed">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-8 h-[1px] bg-cyan-500" />
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-cyan-500 font-bold">Philosophy</span>
+                </div>
+                <h4 className="text-3xl font-display font-bold mb-6 text-neutral-900 dark:text-white leading-tight">
+                  Bridging the gap between <span className="text-gradient-indigo">Logic</span> and <span className="text-gradient-purple">Aesthetics</span>.
+                </h4>
+                <p className="text-neutral-600 dark:text-neutral-400 text-lg leading-relaxed max-w-2xl">
                   I believe that great software is the intersection of technical excellence and human-centric design. 
-                  With over 5 years in the industry, I've focused on building products that aren't just functional, 
-                  but delightful to use. My approach is rooted in clean architecture, performance optimization, 
-                  and a relentless pursuit of aesthetic perfection.
+                  With a focus on modern web technologies, I build products that aren't just functional, 
+                  but delightful to use. My approach is rooted in clean architecture and a relentless pursuit of aesthetic perfection.
                 </p>
               </div>
-              <div className="mt-8 flex gap-4">
+              <div className="mt-12 flex flex-wrap gap-8">
                 <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-neutral-900 dark:text-white">5+</span>
-                  <span className="text-xs text-neutral-500 uppercase tracking-widest">Years Exp</span>
+                  <span className="text-4xl font-display font-bold text-neutral-900 dark:text-white">5+</span>
+                  <span className="text-[10px] text-neutral-500 uppercase tracking-[0.2em] font-bold mt-1">Years Exp</span>
                 </div>
-                <div className="w-[1px] h-12 bg-black/10 dark:bg-white/10" />
+                <div className="w-[1px] h-12 bg-black/10 dark:bg-white/10 hidden sm:block" />
                 <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-neutral-900 dark:text-white">40+</span>
-                  <span className="text-xs text-neutral-500 uppercase tracking-widest">Projects</span>
+                  <span className="text-4xl font-display font-bold text-neutral-900 dark:text-white">40+</span>
+                  <span className="text-[10px] text-neutral-500 uppercase tracking-[0.2em] font-bold mt-1">Projects</span>
                 </div>
-                <div className="w-[1px] h-12 bg-black/10 dark:bg-white/10" />
+                <div className="w-[1px] h-12 bg-black/10 dark:bg-white/10 hidden sm:block" />
                 <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-neutral-900 dark:text-white">100%</span>
-                  <span className="text-xs text-neutral-500 uppercase tracking-widest">Delivery</span>
+                  <span className="text-4xl font-display font-bold text-neutral-900 dark:text-white">100%</span>
+                  <span className="text-[10px] text-neutral-500 uppercase tracking-[0.2em] font-bold mt-1">Delivery</span>
                 </div>
               </div>
             </motion.div>
@@ -81,60 +86,54 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bento-card group h-full"
+              className="bento-card group h-full flex flex-col"
             >
-              <div className="aspect-square rounded-2xl overflow-hidden mb-6">
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-6">
                 <img
-                  src="https://picsum.photos/seed/mecha-anime/800/800"
+                  src="https://picsum.photos/seed/mecha-anime/800/1000"
                   alt="FluxDev-Tech"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-              <h4 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">{PERSONAL_INFO.name}</h4>
-              <p className="text-neutral-500 text-sm">{PERSONAL_INFO.title}</p>
+              <div className="mt-auto">
+                <h4 className="text-xl font-display font-bold text-neutral-900 dark:text-white mb-1">{PERSONAL_INFO.name}</h4>
+                <p className="text-cyan-500 text-xs font-bold uppercase tracking-widest">{PERSONAL_INFO.title}</p>
+              </div>
             </motion.div>
           </Tilt>
 
-          {/* Location Card */}
-          <Tilt>
+          {/* Tech Stack Summary Card - Now full width or adjusted */}
+          <Tilt className="md:col-span-3">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bento-card flex flex-col items-center justify-center text-center h-full"
-            >
-              <div className="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 text-cyan-400">
-                <Terminal size={24} />
-              </div>
-              <h4 className="text-lg font-bold text-neutral-900 dark:text-white mb-2">Based In</h4>
-              <p className="text-neutral-600 dark:text-neutral-400">{PERSONAL_INFO.location}</p>
-            </motion.div>
-          </Tilt>
-
-          {/* Tech Stack Summary Card */}
-          <Tilt className="md:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
               className="bento-card h-full"
             >
-              <h4 className="text-xl font-bold text-neutral-900 dark:text-white mb-6">Core Tech Stack</h4>
-              <div className="flex flex-wrap gap-3">
-                {SKILLS.slice(0, 8).map((skill) => (
-                  <div 
-                    key={skill.name}
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/[0.08] text-slate-700 dark:text-slate-300 text-sm"
-                  >
-                    <span className="text-cyan-400">{getSkillIcon(skill.name)}</span>
-                    {skill.name}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div className="max-w-md">
+                  <h4 className="text-xl font-display font-bold text-neutral-900 dark:text-white mb-4">Core Tech Stack</h4>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                    My arsenal consists of the latest technologies to ensure high performance, 
+                    scalability, and a seamless user experience across all platforms.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-3 md:justify-end flex-1">
+                  {SKILLS.slice(0, 10).map((skill) => (
+                    <div 
+                      key={skill.name}
+                      className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/[0.08] text-slate-700 dark:text-slate-300 text-sm font-medium hover:border-cyan-500/30 transition-colors cursor-default"
+                    >
+                      <span className="text-cyan-400">{getSkillIcon(skill.name)}</span>
+                      {skill.name}
+                    </div>
+                  ))}
+                  <div className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-sm font-bold">
+                    + Many More
                   </div>
-                ))}
-                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-sm font-medium">
-                  + Many More
                 </div>
               </div>
             </motion.div>
@@ -169,7 +168,7 @@ export function Skills() {
           </motion.h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((category, idx) => (
             <div key={category}>
               <Tilt>
@@ -178,31 +177,37 @@ export function Skills() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="p-8 glass rounded-3xl hover:border-cyan-500/30 transition-colors group h-full"
+                  className="p-8 glass rounded-[2rem] border border-black/5 dark:border-white/5 hover:border-cyan-500/30 transition-all group h-full relative overflow-hidden"
                 >
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  {category === 'Frontend' && <Palette className="text-cyan-400" />}
-                  {category === 'Backend' && <Terminal className="text-cyan-400" />}
-                  {category === 'Tools' && <Cpu className="text-cyan-400" />}
-                  {category === 'Design' && <Code2 className="text-cyan-400" />}
-                </div>
-                <h4 className="text-xl font-bold mb-4 text-black dark:text-white">{category}</h4>
-                <div className="flex flex-wrap gap-2">
-                  {SKILLS.filter(s => s.category === category).map(skill => (
-                    <span
-                      key={skill.name}
-                      className="px-3 py-1.5 bg-black/5 dark:bg-white/5 rounded-full text-xs text-slate-600 dark:text-slate-400 border border-black/5 dark:border-white/5 flex items-center gap-2 hover:bg-cyan-500/10 hover:border-cyan-500/20 transition-all cursor-default"
-                    >
-                      <span className="text-cyan-500 dark:text-cyan-400">
-                        {getSkillIcon(skill.name)}
+                  <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <span className="text-4xl font-display font-bold italic">0{idx + 1}</span>
+                  </div>
+                  
+                  <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all duration-500">
+                    {category === 'Frontend' && <Palette className="text-cyan-500" size={28} />}
+                    {category === 'Backend' && <Terminal className="text-cyan-500" size={28} />}
+                    {category === 'Tools' && <Cpu className="text-cyan-500" size={28} />}
+                    {category === 'Design' && <Code2 className="text-cyan-500" size={28} />}
+                  </div>
+                  
+                  <h4 className="text-2xl font-display font-bold mb-6 text-black dark:text-white tracking-tight">{category}</h4>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {SKILLS.filter(s => s.category === category).map(skill => (
+                      <span
+                        key={skill.name}
+                        className="px-4 py-2 bg-black/[0.03] dark:bg-white/[0.03] rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 border border-black/5 dark:border-white/5 flex items-center gap-2 hover:bg-cyan-500/10 hover:border-cyan-500/20 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all cursor-default"
+                      >
+                        <span className="text-cyan-500">
+                          {getSkillIcon(skill.name)}
+                        </span>
+                        {skill.name}
                       </span>
-                      {skill.name}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            </Tilt>
-          </div>
+                    ))}
+                  </div>
+                </motion.div>
+              </Tilt>
+            </div>
           ))}
         </div>
       </div>

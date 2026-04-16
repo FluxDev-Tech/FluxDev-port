@@ -7,12 +7,32 @@ import { cn } from '../lib/utils';
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'bot', content: "Hi! I'm Flux, your AI assistant. How can I help you today?", timestamp: new Date() }
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('chat_history');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          return parsed.map((m: any) => ({
+            ...m,
+            timestamp: new Date(m.timestamp)
+          }));
+        } catch (e) {
+          console.error("Failed to parse chat history", e);
+        }
+      }
+    }
+    return [
+      { role: 'bot', content: "Hi! I'm Flux, your AI assistant. How can I help you today?", timestamp: new Date() }
+    ];
+  });
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    localStorage.setItem('chat_history', JSON.stringify(messages));
+  }, [messages]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -37,6 +57,15 @@ export default function Chatbot() {
     
     setMessages(prev => [...prev, { role: 'bot', content: botResponse, timestamp: new Date() }]);
     setIsLoading(false);
+  };
+
+  const clearChat = () => {
+    const initialMsg: ChatMessage = { 
+      role: 'bot', 
+      content: "Hi! I'm Flux, your AI assistant. How can I help you today?", 
+      timestamp: new Date() 
+    };
+    setMessages([initialMsg]);
   };
 
   return (
@@ -64,6 +93,13 @@ export default function Chatbot() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
+                <button 
+                  onClick={clearChat}
+                  title="Clear Chat"
+                  className="p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors text-slate-500 dark:text-slate-400"
+                >
+                  <Minus size={18} />
+                </button>
                 <button onClick={() => setIsOpen(false)} className="p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors text-slate-500 dark:text-slate-400">
                   <X size={18} />
                 </button>
@@ -75,8 +111,9 @@ export default function Chatbot() {
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
                   className={cn(
                     "flex flex-col max-w-[80%]",
                     msg.role === 'user' ? "ml-auto items-end" : "items-start"
@@ -106,22 +143,37 @@ export default function Chatbot() {
 
             {/* Input */}
             <div className="p-4 bg-black/5 dark:bg-white/5 border-t border-black/5 dark:border-white/5">
-              <div className="relative">
+              <div className="relative group/input">
                 <input
                   type="text"
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSend()}
                   placeholder="Ask me anything..."
-                  className="w-full bg-white/50 dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-xl pl-4 pr-12 py-3 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                  className={cn(
+                    "w-full bg-white/50 dark:bg-black/40 border rounded-xl pl-4 pr-12 py-3.5 text-sm text-neutral-900 dark:text-white focus:outline-none transition-all duration-300",
+                    "border-black/10 dark:border-white/10 focus:border-cyan-500/50",
+                    "focus:ring-2 focus:ring-cyan-500/20 focus:shadow-[0_0_15px_rgba(6,182,212,0.15)]",
+                    "focus:bg-white/80 dark:focus:bg-black/60"
+                  )}
                 />
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   onClick={handleSend}
                   disabled={!input.trim() || isLoading}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-indigo-400 hover:text-indigo-300 disabled:text-neutral-600 transition-colors"
+                  className={cn(
+                    "absolute right-2 top-1/2 -translate-y-1/2 p-2.5 rounded-lg transition-all duration-300",
+                    input.trim() && !isLoading 
+                      ? "text-cyan-500 dark:text-cyan-400 hover:bg-cyan-500/10 shadow-[0_0_10px_rgba(6,182,212,0.2)]" 
+                      : "text-neutral-400 dark:text-neutral-600"
+                  )}
                 >
-                  <Send size={18} />
-                </button>
+                  <Send size={20} className={cn(
+                    "transition-transform duration-300",
+                    input.trim() && !isLoading && "group-hover/input:translate-x-0.5 group-hover/input:-translate-y-0.5"
+                  )} />
+                </motion.button>
               </div>
             </div>
           </motion.div>

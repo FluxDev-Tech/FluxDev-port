@@ -175,43 +175,51 @@ export default function Hero({ onViewResume }: { onViewResume: () => void }) {
             {PERSONAL_INFO.availability}
           </motion.div>
           
-          <h1 className="text-6xl md:text-9xl font-display font-bold tracking-tighter mb-8 leading-[0.9] drop-shadow-sm">
+          <div className="flex items-center justify-center gap-8 mb-8">
+            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 dark:text-neutral-600">Est. 2022</span>
+            <div className="w-1 h-1 rounded-full bg-cyan-500" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 dark:text-neutral-600">Portfolio v2.0</span>
+          </div>
+          
+          <h1 className="text-7xl md:text-[10rem] font-display font-bold tracking-tighter mb-8 leading-[0.85] drop-shadow-sm">
             <span className="block text-neutral-900 dark:text-white opacity-90">Building the</span>
-            <span className="text-gradient-indigo filter drop-shadow-[0_0_30px_rgba(99,102,241,0.3)]">Future of Web</span>
+            <span className="text-gradient-indigo filter drop-shadow-[0_0_50px_rgba(99,102,241,0.4)]">Digital Future</span>
           </h1>
           
-          <div className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 font-medium mb-12 max-w-2xl mx-auto leading-relaxed">
-            <TypeAnimation
-              sequence={[
-                'Full Stack Developer & UI Designer',
-                2000,
-                'Architecting Scalable Digital Solutions',
-                2000,
-                'Crafting Immersive User Experiences',
-                2000,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-            />
+          <div className="flex items-center justify-center gap-4 mb-12">
+            <div className="h-[1px] w-12 bg-neutral-300 dark:bg-neutral-800" />
+            <div className="text-sm md:text-base text-neutral-500 dark:text-neutral-500 font-mono tracking-[0.3em] uppercase">
+              <TypeAnimation
+                sequence={[
+                  'Full Stack Developer',
+                  2000,
+                  'UI/UX Designer',
+                  2000,
+                  'System Architect',
+                  2000,
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+              />
+            </div>
+            <div className="h-[1px] w-12 bg-neutral-300 dark:bg-neutral-800" />
           </div>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <motion.a
-              href={https://github.com/FluxDev-Tech}
-              target="_blank"
-              rel="noreferrer"
+              href="#contact"
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.9, rotate: -2 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               className="group relative px-10 py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold flex items-center gap-3 overflow-hidden transition-all shadow-[0_20px_50px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_50px_rgba(255,255,255,0.1)]"
             >
-              <span className="relative z-10">Learn More</span>
+              <span className="relative z-10">Contact Me</span>
               <motion.div
                 animate={{ x: [0, 5, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
               >
-                <Github size={20} className="relative z-10" />
+                <ArrowRight size={20} className="relative z-10" />
               </motion.div>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-indigo-500 opacity-0 group-hover:opacity-20 transition-opacity" />
             </motion.a>

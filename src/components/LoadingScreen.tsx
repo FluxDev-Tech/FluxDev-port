@@ -107,7 +107,13 @@ export default function LoadingScreen() {
               animate={{ width: `${Math.min(progress, 100)}%` }}
               transition={{ type: "spring", stiffness: 50, damping: 15 }}
               className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 to-indigo-500 shadow-[0_0_20px_rgba(6,182,212,0.6)]"
-            />
+            >
+              <motion.div
+                animate={{ x: ["-100%", "100%"] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+              />
+            </motion.div>
           </div>
 
           {/* Progress Markers */}
@@ -126,23 +132,57 @@ export default function LoadingScreen() {
                     key={i}
                     animate={{ 
                       opacity: progress > (i + 1) * 20 ? 1 : 0.2,
-                      scale: progress > (i + 1) * 20 ? [1, 1.2, 1] : 1
+                      scale: progress > (i + 1) * 20 ? [1, 1.4, 1] : 1,
+                      backgroundColor: progress > (i + 1) * 20 ? "#06b6d4" : "#94a3b8"
                     }}
-                    className="w-1.5 h-1.5 rounded-full bg-cyan-500"
+                    transition={{ 
+                      opacity: { type: "spring", stiffness: 300, damping: 10 },
+                      backgroundColor: { type: "spring", stiffness: 300, damping: 10 },
+                      scale: { duration: 0.4, ease: "backOut" }
+                    }}
+                    className="w-1.5 h-1.5 rounded-full"
                   />
                 ))}
               </div>
             </div>
             <div className="flex flex-col items-end">
-              <span className="text-2xl font-mono font-bold text-slate-900 dark:text-white tabular-nums">
+              <motion.span 
+                key={progress}
+                initial={{ scale: 0.8, opacity: 0.5 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="text-2xl font-mono font-bold text-slate-900 dark:text-white tabular-nums"
+              >
                 {Math.min(progress, 100)}<span className="text-xs text-cyan-500 ml-0.5">%</span>
-              </span>
+              </motion.span>
               <span className="text-[8px] uppercase tracking-widest text-slate-400 font-mono">
                 Syncing Assets
               </span>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Floating Elements for Parallax */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            style={{ 
+              x: useTransform(smoothX, [-500, 500], [-(i + 1) * 10, (i + 1) * 10]),
+              y: useTransform(smoothY, [-500, 500], [-(i + 1) * 10, (i + 1) * 10])
+            }}
+            className="absolute text-[10px] font-mono text-cyan-500/10 dark:text-cyan-500/5 whitespace-nowrap"
+            initial={{ 
+              top: `${Math.random() * 100}%`, 
+              left: `${Math.random() * 100}%`,
+              opacity: 0 
+            }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: i * 0.2 }}
+          >
+            {`0x${Math.random().toString(16).slice(2, 8).toUpperCase()}`}
+          </motion.div>
+        ))}
       </div>
 
       {/* Grid Background Effect with Parallax */}
