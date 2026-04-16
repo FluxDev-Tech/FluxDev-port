@@ -91,7 +91,7 @@ export default function About() {
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-6">
                 <img
                   src="https://picsum.photos/seed/mecha-anime/800/1000"
-                  alt="FluxDev-Tech"
+                  alt="John Lawrence V. Martinez - Full Stack Developer"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />

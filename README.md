@@ -1,7 +1,7 @@
 # 🚀 FluxDev Portfolio
 
 <div align="center">
-  <img src="#" alt="FluxDev Banner" width="100%" style="border-radius: 20px; margin-bottom: 20px;" />
+  <img src="https://picsum.photos/seed/fluxdev/1200/400" alt="FluxDev Banner" width="100%" style="border-radius: 20px; margin-bottom: 20px;" />
   
   **A high-performance, visually stunning portfolio for the modern developer.**
   
