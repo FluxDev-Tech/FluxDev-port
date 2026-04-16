@@ -198,7 +198,7 @@ export default function Hero({ onViewResume }: { onViewResume: () => void }) {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <motion.a
-              href={PERSONAL_INFO.socials.github}
+              href={https://github.com/FluxDev-Tech}
               target="_blank"
               rel="noreferrer"
               whileHover={{ scale: 1.05, y: -5 }}
