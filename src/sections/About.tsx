@@ -15,7 +15,7 @@ import Tilt from '../components/Tilt';
 
 export default function About() {
   const profileImg = "/src/assets/profile .png";
-  const fallbackImg = "https://picsum.photos/seed/mecha-anime/800/1000";
+  const fallbackImg = "src/assets/profile .png";
 
   return (
     <section id="about" className="py-32 px-6 relative bg-transparent">
