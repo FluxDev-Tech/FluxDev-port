@@ -14,6 +14,9 @@ const categories = ['Frontend', 'Backend', 'Tools', 'Design'];
 import Tilt from '../components/Tilt';
 
 export default function About() {
+  const profileImg = "/src/assets/profile.png";
+  const fallbackImg = "https://picsum.photos/seed/mecha-anime/800/1000";
+
   return (
     <section id="about" className="py-32 px-6 relative bg-transparent">
       <div className="max-w-7xl mx-auto">
@@ -90,10 +93,12 @@ export default function About() {
             >
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-6">
                 <img
-                  src="src/assets/IMG_20260430_085114.png"
+                  src={profileImg}
                   alt="John Lawrence V. Martinez - Full Stack Developer"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = fallbackImg;
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
